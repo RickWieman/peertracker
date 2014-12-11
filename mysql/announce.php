@@ -57,7 +57,8 @@ if (!(isset($_GET['port']) && is_numeric($_GET['port']))) tracker_error('client 
 
 // integer - left
 // number of bytes left for the peer to download
-if (isset($_GET['left']) && is_numeric($_GET['left'])) $_SERVER['tracker']['seeding'] = ($_GET['left'] > 0 ? 0 : 1); else tracker_error('client data left field is invalid');
+// if this field is missing or incorrect, the peer certainly isn't a seeder
+if (isset($_GET['left']) && is_numeric($_GET['left'])) $_SERVER['tracker']['seeding'] = ($_GET['left'] > 0 ? 0 : 1); else $_SERVER['tracker']['seeding'] = 0;
 
 // integer boolean - compact - optional
 // send a compact peer response
